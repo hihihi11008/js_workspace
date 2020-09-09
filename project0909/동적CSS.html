@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Document</title>
+<style>
+    #wrapper {
+        width:800px;
+        height: 600px;
+        margin: auto;
+    }
+    #control{
+        width: 200px;
+        height: 100%;
+        background:yellowgreen;
+        float: left;
+
+    }
+    #result{
+        width: 600px;
+        height: 100%;
+        float: left;
+    }
+    #pic{
+        width:100px;
+        height: 100px;
+        transform:scaleX(1);
+        transform:scaleY(1);
+        border:1px dotted red;
+    }
+</style>
+<script>
+// 여기 영역은 html이 아닌 프로그래밍 영역이다. 
+// 이영역이 수행되는 시점은? 브라우저 실행할때 
+var w=0; //너비를 결정짓는 변수
+var h=0; // 높이를 결정짓는 변수
+var x=1; //x스케일 결정짓는 변수
+var y=1; //y스케일 결정짓는 변수
+var op=1;
+var ro=0;
+var b=0;
+function setWidth(){
+//문서내의 pic 이라는 요소의 css의 너비를 늘린다.
+w = w+10;//10증가 즉 누적시킴
+document.getElementById("pic").style.width=w+"px";
+}
+function setHeight(){
+//문서내의 pic 이라는 요소의 css의 높이를 늘린다.
+h = h+10;//10증가 즉 누적시킴
+document.getElementById("pic").style.height=h+"px";
+}
+function setScaleX(){
+//문서내의 pic 이라는 요소의 css의 scaleX의 값을 늘린다.
+//참고로 스케일은 너비의 배수를 의미 ex)1배, 2배, 3배 ... 
+x = x+0.5;
+document.getElementById("pic").style.transform="scaleX("+x+")";
+}
+function setScaleY(){
+//문서내의 pic 이라는 요소의 css의 scaleY 값을 늘린다.
+y = y+0.5;
+document.getElementById("pic").style.transform="scaleY("+y+")";
+}
+function setOpacity(){
+op = op-0.1;
+document.getElementById("pic").style.opacity=op;
+}
+function setRotate(){
+ro = ro+5; //5도씩 양수방향으로 돌린다(시계방향, 음수(시계반대방향)
+document.getElementById("pic").style.transform="rotate("+ro+"deg)";
+}
+function setBorder(){
+b = b +1;
+document.getElementById("pic").style.border=b+"px dotted black";
+}
+</script>
+</head>
+<body>
+    
+    <div id="wrapper">
+        <div id="control">
+            <!-- ul이란 un ordered list 순서없는 목록 -->
+            <ul>
+                <li>
+                    <button onclick="setWidth()">width</button>
+                    <button onclick="setHeight()">height</button>                  
+                </li>
+                <li>
+                    <button onclick="setScaleX()">scaleX</button>
+                    <button onclick="setScaleY()">scaleY</button>                    
+                </li>
+                <li>
+                    <button onclick="setOpacity()">opacity</button>
+                </li>
+                <li>    
+                    <button onclick="setRotate()">rotate</button>
+                </li>
+                <li>
+                    <button onclick="setBorder()">border</button>
+                </li>
+            </ul>
+        </div>
+        <div id="result">
+            <img src="../images/hero/image1.png" id="pic"/>"
+        </div>
+    </div>
+    
+</body>
+</html>
