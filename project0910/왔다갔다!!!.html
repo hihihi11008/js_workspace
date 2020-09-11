@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Document</title>
+<style>
+    #box{
+        width: 100px;
+        height: 100px;
+        background:palevioletred;
+        position:absolute;
+        top:100px;
+        left:0px;
+    }
+</style>
+<script>
+    //button 을 클릭하여 box를 left로 5px씩 이동시키고 500px에서 다시 돌아오게 할거얐! 
+    var x=0;
+    var a=5
+    function touch(){
+        x+=a;
+        a=(x>=50||x<=0)? -a:a; 
+    
+        document.getElementById("box").style.left=x+"px";
+        
+        
+
+        document.getElementById("info").value=x;
+        document.getElementById("info2").value=a;
+    }
+</script>
+</head>
+<body>
+    <button onclick="touch()">왔다갔다</button>
+    <input type="text" id="info"/>
+    <input type="text" id="info2"/>
+    <div id="box"></div>
+</body>
+</html>
