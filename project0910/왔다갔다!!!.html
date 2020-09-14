@@ -21,20 +21,12 @@
     function touch(){
         x+=a;
         a=(x>=50||x<=0)? -a:a; 
-    
         document.getElementById("box").style.left=x+"px";
-        
-        
-
-        document.getElementById("info").value=x;
-        document.getElementById("info2").value=a;
     }
 </script>
 </head>
 <body>
     <button onclick="touch()">왔다갔다</button>
-    <input type="text" id="info"/>
-    <input type="text" id="info2"/>
     <div id="box"></div>
 </body>
 </html>

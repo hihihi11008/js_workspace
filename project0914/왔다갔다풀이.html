@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Document</title>
+<style>
+    #box{
+        width: 100px;
+        height: 100px;
+        background-color: darkcyan;
+        position:absolute;
+        left: 0px;
+        top: 150px;
+        color:darkgray
+        font-size=100px;
+        font-weight:bold;
+        text-align: center;
+    }
+</style>
+<script>
+var x=0;//box의 x좌표
+var step=5;//우측, 좌측을 결정짓는 발걸음 변수
+
+//함수는 호출해야 동작한다 !!(호출하기 전까지는 절대 실행하지 않는다 )
+//body 태그안의 모든 요소가 생성된 이후에 ,즉 로드된 이후에 자바스크립트에서 
+//접근해야하므로 ,초기화 함수는 onLoad 이벤트 핸들러에서 호출하도록한다 .1 
+function init(){
+    //문서 로드이후에 사용할 수 있는 것들에 대해 주로한다 
+    box=document.getElementById("box0");
+}
+function move(){
+    x=x+step;
+    document.getElementById("box").style.left=x+"px";
+    //박스안에 x값 출력
+    document.getElementById("box").innerText=x;
+    //400이상이거나, 0이하면 기존의 5는 부호를 바꿔야한다 
+    step=(x<=0||x>=400)? -step:step;
+}
+//자동으로 움직이게 처리 
+function auto(){
+    setInterval("move()", 20);
+}
+</script>
+</head>
+<body>
+    <button onclick="move()">수동 움직이기</button>
+    <button onclick="auto()">자동 움직이기</button>
+    <div id="box"></div>
+</body>
+</html>
