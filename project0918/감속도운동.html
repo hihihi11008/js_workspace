@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Document</title>
+<style>
+    #box{
+        width: 100px;
+        height: 100px;
+        background: red;
+    }
+    body{
+        margin:0px;
+    }
+    /*마우스이벤트는 body를 대상으로는 반응을 보이지 않을 경우가 있으므로 body만한 크기의 div로 문서 전체를 덮어버리기 위한 div*/
+    .wrapper{
+        width: 100%;
+        height: 700px;
+        background: plum;
+    }
+</style>
+<script>
+    var box;
+    let a=0.1;// 비율계수가 높아질 수록, 남은거리에대한 움직임이 커지므로 부드럽지 못해
+    var targetX=600;//박스가 도달할 목표지점
+    var targetY=400;//박스가 도달할 목표지점
+    var deg=0; 
+    //문서가 로드되면, 박스에대한 초기화를 진행
+    function init(){
+        box=document.getElementById("box");
+        box.style.position="absolute";
+        box.style.left=0+"px";
+        box.style.top=100+"px";
+    }
+    //지금까지의 움직임과는 틀리게, 목표지점으로 한꺼번에 건너뛰지말고 
+    //조금씩 다가가자 (감속도운동)
+    //목표지점은 700으로 정해놓자 
+    function move(){                               //남은거리
+        //박스의 위치는 =현재박스위치 +a*(700-현재박스위치)
+        box.style.left=parseInt(box.style.left)+a*(targetX-parseInt(box.style.left))+"px";
+        box.style.top=parseInt(box.style.top)+a*(targetY-parseInt(box.style.top))+"px";
+        //돌려보자
+        deg+=5;//1도씩증가
+        // console.log(box.style.left);
+        box.style.transform="rotate("+deg+"deg)";
+    }
+    function auto(){
+        setInterval("move()",30);
+    }
+</script>
+</head>
+<body onload="init()">
+    <div class="wrapper">
+        <button onclick="move()">수동 움직이기</button>
+        <button onclick="auto()">자동 움직이기</button>
+        <div id="box"></div>    
+    </div>
+</body>
+</html>
