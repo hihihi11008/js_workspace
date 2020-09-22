@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Document</title>
+<style>
+/* .wrapper 라는 클래스가 적용된 요소의 하우요소 중 div 는 ...  */
+.wrapper{
+    width:700px;
+    height: 500px;
+    background: black;
+    margin: auto;
+    overflow:hidden; /*자식이 float 되면 */
+}
+.wrapper div{
+   width: 100px;
+   height: 100px;
+   float:left;
+}
+#content{
+    width: 100%;
+    height: 400px;
+    background: plum;
+}
+</style>
+<script>
+//문서내의 content라는 div의 배경색을 선택한 색상으로 변경하자
+function setColor(bg){
+    var content=document.getElementById("content");
+    content.style.backgroundColor=bg;
+}
+</script>
+</head>
+<body>
+    <div class="wrapper">
+        <!-- 썸네일 7개 생성 -->
+        <!-- span은 아무런 효과가 없는 태그이다. 따라서 단순히 마크업을 하기 위해서라면 span을 이용할 수 있다 .
+        inline(width x, height x )
+        -->
+        <div onMouseover="setColor('red')" style="background:red">red</div>
+        <div onMouseover="setColor('orange')" style="background:orange">orange</div>
+        <div onMouseover="setColor('yellow')" style="background:yellow">yellow</div>
+        <div onMouseover="setColor('green')" style="background:green">green</div>
+        <div onMouseover="setColor('blue')" style="background:blue">blue</div>
+        <div onMouseover="setColor('navy')" style="background:navy">navy</div>
+        <div onMouseover="setColor('purple')" style="background:purple">purple</div>
+        <div id="content">큰색상 나오게 </div>
+
+    </div>
+</body>
+</html>
