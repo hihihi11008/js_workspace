@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Document</title>
+<script>
+    // 이예제에서는 body에 직접 태그를 작성하지 말자! 
+    // 순수 자바스크립트로만 ,디자인까지 작성해보자..... 실력향상
+var ball; // 전역변수로 선언해야, 다른 함수영역에서 접근이 가능하다 !! 
+            // 즉 프로그래밍 끝날때까지 살아 있어야, 다른 함수에서도 사용가능
+var x=0; //ball의 x좌표를 결정짓는 전역 변수 : 누적이 되어야 하므로 전역 
+var y=0; //ball의 y좌표를 결정짓는 전역 변수 : 누적이 되어야 하므로 전역 
+var wrapper; // 다른 함수에서 접근하기 위해서 전역변수로 선언 
+var stepX=5; // 초기의 x의 증가량 
+var stepY=4; // 초기의 y의 증가량 
+var flag=true; // move 함수의 코드영역을 수행할지 말지를 결정짓 는 전역변수 
+                    // 전역 변수는 브라우저가 살아있는 동안, 계속 사용가능 
+
+function init(){
+    createButton();    
+    wrapper=document.createElement("div"); //<div></div> 와 동일
+    wrapper.style.width=200+"px";
+    wrapper.style.height=200+"px";
+    wrapper.style.background="greenyellow";
+    wrapper.style.margin="auto";
+    wrapper.style.position="relative";//자식 떄문에 
+    document.body.appendChild(wrapper); //<bady> 태그 안에 추가 
+
+    //공 추가하기 
+    ball=document.createElement("img"); // <img/> 와 동일
+    ball.src="../images/ball/2.png"; // <img src=""/> 와 동일
+    ball.style.width=50+"px"; 
+    ball.style.height=50+"px"; 
+    ball.style.position="absolute"; // 부모인 wrapper를 기준
+    ball.style.left=100+"px";    
+    ball.style.top=50+"px";    
+    wrapper.appendChild(ball);// wrapper에 추가 
+       
+}
+    //수동, 자동 버튼생성                  
+function createButton(){
+    //동적으로 버튼을 생성하고, click 이벤트 마저도 프로그래밍적으로 처리해보자 ! 
+    var bt1=document.createElement("button");//수동버튼
+    var bt2=document.createElement("button");//자동버튼
+    var bt3=document.createElement("button");//Pause버튼
+
+    //버튼에 click 이벤트 추가하기 
+    bt1.addEventListener("click", function(){
+        //이름없는 함수를 익명함수라 하고, 이 영역에 코드를 작성하면 
+        //해당 이벤트가 발생했을때, 이코드가 동작하게된다.
+        // alert("나눌렀어?");
+        //수동 움직임
+        move();
+    });// 버튼에 이벤트 감지가 등록! 
+
+    bt2.addEventListener("click", function(){
+        setInterval("move()",20);  
+        //현재 버튼을 더이상 못누르도록 비활성화 시킨다 
+        bt2.disabled=true; // 버튼의 비활성화 여부를 true 
+    });
+
+    bt3.addEventListener("click", function(){
+        //한번 누르면  동작, 또한번 누르면 멈춤 - 멈추거나 움직이거나 = 흑백논리(단 두가지경우)
+        //흑백논리의 처리는 프로그래밍 언어에서 지원하는 3가지 데이터 유형중 논리값과 연관성이 높다 
+        flag=!flag;
+    });
+
+
+    bt1.innerText="수동"; // <button>수동</button> 와 동일
+    bt2.innerText="자동";// <button>자동</button> 와 동일
+    bt3.innerText="Pause";// <button>Pause</button> 와 동일
+    document.body.appendChild(bt1);//body에 추가 
+    document.body.appendChild(bt2);//body에 추가 
+    document.body.appendChild(bt3);//body에 추가 
+}
+function move(){
+    if(flag){
+        x = x+stepX; //x가 증가할지, 감소할지 여부를 결정짓지 않기 위한 변수 
+        y = y+stepY; //y가 증가할지, 감소할지 여부를 결정짓지 않기 위한 변수
+        ball.style.left=x+"px";
+        ball.style.top=y+"px";
+    
+        // if문으로 풀기 
+    
+        // if(x<=0||x==(parseInt(wrapper.style.width) - parseInt(ball.style.width))){
+        //     stepX= -stepX; 
+        // }
+        // if(y<=0||y>=(parseInt(wrapper.style.height) - parseInt(ball.style.height))){
+        //     stepY= -stepY;
+        // }
+
+        // 삼항연산자로 풀기 
+    
+        stepX = (x<=0||x>=(parseInt(wrapper.style.width) - parseInt(ball.style.width)))? -stepX:stepX;
+        stepY = (y<=0||y>=(parseInt(wrapper.style.height) - parseInt(ball.style.height)))? -stepY:stepY;
+    }
+}
+</script>
+</head>
+<body onload="init()">
+</body>
+</html>
