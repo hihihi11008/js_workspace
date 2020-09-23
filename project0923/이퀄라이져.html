@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Document</title>
+<style>
+    #wrapper{
+        width: 700px;
+        height: 600px;
+        border: 2px solid aqua;
+        margin: auto;
+        position: relative;
+    }
+</style>
+<script>
+var wrapper;
+var targetH=20; //바의 목표높이 
+var a=0.1;
+var barArray=new Array(7);
+//막대생성
+function createBar(){
+    for(var i=0;i<=6;i++){
+        var bar=document.createElement("div");
+        bar.style.position="absolute";
+        bar.style.left=0+"px";
+        bar.style.top=0+"px";
+        bar.style.width=60+"px";
+        bar.style.height=20+"px";
+        bar.style.borderRadius="4px";
+        bar.style.background="red";
+
+        wrapper.appendChild(bar);
+
+        barArray[i]=bar;
+       
+        console.log("현재까지의 배열의길이는 ", barArray.length);
+        //막대에크기 변경함수 
+        // bar.addEventListener("mouseover",function(){
+        //     targetH=500;
+        // });
+        // bar.addEventListener("mouseout",function(){
+        //     targetH=20;
+        // });
+    }
+}
+//버튼만들기 
+function createButton(){
+    var bt=document.createElement("button");
+    bt.innerText="얍";
+
+    document.body.appendChild(bt);
+
+    bt.addEventListener("cilick",function(){
+        setInterval("setMove()",25);
+    });
+}
+function setMove(){
+    targetH=500;
+}
+//막대크기 변경함수 
+function move(){
+    setMove();
+    bar.style.height=parseFloat(bar.style.height)+a*(targetH-parseFloat(bar.style.height))+"px";
+    bar.innerText=parseFloat(bar.style.height);
+}
+function init(){
+    wrapper=document.getElementById("wrapper");
+    createBar();
+    createButton();
+    // setInterval("move()",25);
+}
+window.addEventListener("load",function(){
+    init();
+});
+</script>
+</head>
+<body>
+    <div id="wrapper"></div>
+</body>
+</html>

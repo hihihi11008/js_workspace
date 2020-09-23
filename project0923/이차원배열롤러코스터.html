@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>이차원 배열은 데이터베이스다 </title>
+<style>
+/* margin:auto 주지 않은 이유? 
+마우스 좌표는 모니터를 기준으로 하므로 , div 중앙으로 옮기면 오차가 생긴다 
+*/
+body{margin:0px;}
+.wrapper{
+    width: 1200px;
+    height:700px;
+    background: greenyellow;
+    overflow: hidden;
+}
+#content{
+    width: 1000px;
+    height: 100%;
+    background: url(https://media.istockphoto.com/vectors/roller-coaster-flat-vector-illustration-vector-id1142734896);
+    background-size: 1000px 100%;
+    float: left;
+}
+#info{
+    width: 200px;
+    height: 100%;
+    background-color: lightseagreen;
+    float: left;
+}
+</style>
+<script>
+var content;//좌표 점을 찍고, 이미지도 추가 
+var info; // 이차원 배열에 쌓여진 데이터 현황 출력 
+var dotArray=new Array(); // 사용자의 좌표흔적을 누적시킬 배열  
+                    //좌표를 표현한 일차원 배열을 누적시켜나갈 것임 
+//마우스의 좌표를 구해서 해당지점에 흔적을 남기고 이좌표(x,y 일차원배열)정보를 2차원 배열에 누적시켜보자 
+//즉 좌표 데이터베이스를 구축하자 (이차원 배열은 데이터베이스이다)
+var roll;
+var cnt=0; //버튼 클릭시 카운터값
+
+
+function setPoint(){
+    var x=event.clientX; //마우스 x 좌표 
+    var y=event.clientY; //마우스 y  좌표
+
+    //시각적인효과를 주기 위해 해당 지점에 엘리먼트 생성 
+    var dot=document.createElement("div");
+    dot.style.width=5+"px";
+    dot.style.height=5+"px";
+    dot.style.background="hotpink";
+    dot.style.position="absolute";
+    dot.style.left=x+"px";
+    dot.style.top=y+"px";
+    content.appendChild(dot);
+
+    //좌표 1점을 담게될 일차원 배열 
+    var point=[x,y];
+    dotArray.push(point);//dotArray에 추가 
+
+    //현재 배열의 누적된 상황을 우측 정보창에 출력하자 
+    printInfo();
+}
+function printInfo(){
+    //이차원 배열인 dotArray에 들어있는 모든 데이터를 출력해서 보여주자 
+    var str="";
+    for(var i=0;i<dotArray.length;i++){
+        var point=dotArray[i];// dotArray의 각 요소에 들어있는 일차원 배열 반환 
+        str+="["+point[0]+","+point[1]+"]<br/>";
+        // roll.style.left=parseInt(dotArray[i][0])+"px";
+        // roll.style.top=parseInt(dotArray[i][1])+"px";
+
+        // console.log("roll의위치는",parseInt(roll.style.left));
+        // console.log("roll의위치는",parseInt(roll.style.top));
+    }
+    info.innerHTML=str;
+}
+//롤러코스터 이동시키기 
+function move(){
+    //롤코이동 
+        roll.style.left=parseInt(dotArray[cnt][0])+"px";
+        roll.style.top=parseInt(dotArray[cnt][1])+"px";
+        cnt++;
+}
+function createRoll(){
+    //롤러코스터만들기 
+    roll=document.createElement("img");
+    roll.src="https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcQGS1bSiK5dic9-XUjZKRxB6u92mn0cWMZuxg&usqp=CAU";
+    roll.style.width=50+"px";
+    roll.style.height=50+"px";
+    roll.style.position="absolute";
+    roll.style.left=10+"px";
+    roll.style.top=10+"px";
+    
+    content.appendChild(roll);
+}
+function createButton(){
+    //버튼만들기 
+    var bt=document.createElement("button");
+    bt.innerText="출발";
+    bt.addEventListener("click",function(){
+        // move();
+        setInterval("move()",100);
+    });
+    document.body.appendChild(bt);
+}
+function init(){
+    content=document.getElementById("content");
+    info=document.getElementById("info");
+
+}
+window.addEventListener("load",function(){
+    init();
+    createRoll();
+    createButton();
+});
+
+//배열의 순서를 따라  이미지가 이동하도록 setinterval사용 
+//버튼생성 이미지를 div(x,y)위치에 삽입  후 다음 x,y 좌표로 이동 > setInterval
+</script>
+</head>
+<body>
+    <div class="wrapper">
+        <div id="content" onclick="setPoint()"></div>
+        <div id="info"></div>
+    </div>
+</body>
+</html>
