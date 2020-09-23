@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>점심메뉴 보여주기</title>
+<script src="../js/lib.js"></script>
+<style>
+
+</style>
+<script>
+var bt;
+var bob;
+var n=0;
+var a;
+var lunch=new Array();
+lunch[0]="김밥";
+lunch[1]="국밥";
+lunch[2]="칼국수";
+lunch[3]="김치찌개";
+
+function init(){
+    bt = document.getElementById("bt");
+    bob = document.getElementById("bob");
+    a=lunch.length;
+}
+
+console.log(n);
+//음식 출력 
+function printBob(){
+    n=getRandom(a-1);
+    console.log(n);
+    bob.innerText=lunch[n];
+}
+window.addEventListener("load",function(){
+    init();
+});
+</script>
+</head>
+<body>
+    <button onclick="printBob()" id="bt">점심메뉴 보여주기 </button>
+    <h1 id="bob"></h1>
+</body>
+</html>

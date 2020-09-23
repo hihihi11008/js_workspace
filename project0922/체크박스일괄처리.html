@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Document</title>
+<script>
+    function checkAll(){
+        var ch=document.getElementsByName("ch");
+
+        //반복문으로 모든 체크박스를 처리하기 전에, 먼저 대표체크박스가 
+        //현재어떤상태인지 먼저 조사해야한다 
+        // alert(document.getElementById("king").checked);
+
+        for(var i=0; i<ch.length;i++){
+
+            ch[i].checked=document.getElementById("king").checked; 
+
+        }
+        
+    }
+</script>
+</head>
+<body>
+    <ul>
+        <li><input type="checkbox" onclick="checkAll()" id="king">대표박스</li>
+        <li><input type="checkbox" name="ch" >메일제목</li>
+        <li><input type="checkbox" name="ch" >메일제목</li>
+        <li><input type="checkbox" name="ch" >메일제목</li>
+        <li><input type="checkbox" name="ch" >메일제목</li>
+        <li><input type="checkbox" name="ch" >메일제목</li>
+        <li><input type="checkbox" name="ch" >메일제목</li>
+        <li><input type="checkbox" name="ch" >메일제목</li>
+        <li><input type="checkbox" name="ch" >메일제목</li>
+        <li><input type="checkbox" name="ch" >메일제목</li>
+        <li><input type="checkbox" name="ch" >메일제목</li>
+    </ul>
+</body>
+</html>
