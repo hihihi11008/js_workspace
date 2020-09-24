@@ -80,7 +80,9 @@ function move(){
     //롤코이동 
         roll.style.left=parseInt(dotArray[cnt][0])+"px";
         roll.style.top=parseInt(dotArray[cnt][1])+"px";
-        cnt++;
+        if(cnt<dotArray.length-1){
+            cnt++;//무조건 하면 배열의 범위를 넘어설때 에러가 발생
+        }
 }
 function createRoll(){
     //롤러코스터만들기 
