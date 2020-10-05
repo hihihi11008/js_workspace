@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    body{margin: 0px;}
+    #wrapper{
+      width: 100%;
+      height: 800px;
+      background: yellow;
+    }
+  </style>
+  <script src="./Box.js"></script>
+  <script src="../js/lib.js"></script>
+  <script>    
+  var b1,b2;
+  function getPos(){
+    var x=event.clientX;//마우스 x좌표
+    var y=event.clientY;//마우스 y좌표
+    console.log("x=%d, y=%d",x,y);
+    drag(x,y);
+  }
+  //박스 나르기
+  function drag(x,y){ //클릭을 누른 순간부터 박스1의 좌표를 마우스의 좌표와 일치시키기
+    b1.x=x;
+    b1.y=y;
+
+    b1.div.style.left=b1.x+"px";
+    b1.div.style.top=b1.y+"px";
+
+    //좌표 출력
+    b1.div.innerText="x:"+b1.x+"\n y:"+b1.y;
+    b2.div.innerText="x:"+b2.x+"\n y:"+b2.y;
+
+    //충돌판단 (x축이 교차하고 and(&&) y축도 교차해야 함)
+    // if(b1.x + b1.width >=b2.x){
+    //   alert("x좌표가 교차함");
+    // }
+    // if(b1.y+b1.height>=b2.y){
+    //     alert("y좌표가 교차됏옹");
+    // }
+    // if((b1.x + b1.width >=b2.x)&&(b1.y+b1.height>=b2.y)){
+    //     // alert("충돌쓰");
+    //     b1.div.style.background="green";
+    // }else{
+    //     b1.div.style.background="red";
+    //     }
+    var result=collisionCheck(b1.div,b2.div);
+    console.log("충돌여부",result);
+        if(result){
+            b1.div.style.background="green";
+        }else{
+            b1.div.style.background="red";
+        }
+    } 
+
+  function init(){
+    b1=new Box("red",100,200); //빨간상자
+    b2=new Box("dodgerblue",500,200);//파란상자
+  }
+  window.addEventListener("load",function(){
+    init();
+  })
+  </script>
+</head>
+<body onmousemove="getPos()">
+  <div id="wrapper"></div>
+</body>
+</html>
