@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Document</title>
+<style>
+.wrapper{
+    width: 700px;
+    height: 800px;
+    background-color:lightpink;
+    margin: auto;
+}
+#head{
+    width:100%;
+    height:100px;
+    background:lightseagreen;
+    text-align:center;
+}
+#head span{
+    font-size: 50px;
+}
+#content{
+    width: 100%;
+    height: 700px;
+    background: mediumpurple;
+}
+a{
+    text-decoration: none; /*링크밑줄 없애기*/
+    
+}
+</style>
+<script src="./Cell.js"></script>
+<script src="../js/lib.js"></script>
+<script>
+/*
+해결과제
+1) 날짜 출력은 각 월의 마지막날까지만 
+2)각월의 시작 요일이 반영되게 
+*/
+var head,content,info;
+var days=["Sun","Mon","Tue","Wed","Thu","Fri","Sat"];
+var startDay=0;//각 월의 시작요일(즉 매월마다 1일이무슨요일인지)
+var currentYear=0; //현재 사용자가 보고 있는 연도
+var currentMonth=0;//현재 사용자가 보고 있는 월
+var lastDate=0;// 해당월의 마지막 날 
+
+//요일 출력
+function createDay(){
+    for(var i=0;i<days.length;i++){
+        new Cell(content,100,100,days[i]);
+    }
+}
+function createCell(){
+    var n=0;//카운터를 세기위한 용도 였음 (눈에보여주기 위함이 아님)
+    var num=0;//출력될 날짜를 갖는변수 (눈에 보여질 날짜)
+    for(var a=0;a<6;a++){//층
+        for(var i=0;i<7;i++){//호
+            var txt="";
+            if(startDay<=n&&lastDate>num){
+                num++;
+                txt=num;
+            }else{
+                txt="";
+            }
+            //container,width,height,text
+            new Cell(content,100,100,txt);
+            n++; // 무조건 하면 안되고, 각 월마다 시작요일을 알아내서, 그요일서부터 이작업을 수행 
+        }
+    }
+}
+//현재날짜 구하기
+function getCurrentDate(){
+    var d=new Date(); //디폴트는 오늘날짜임 
+    //이전,다음을 구현하기 위해서는 현재 유저가 보고 있는 날짜를 알아야 하므로 
+    //그래야 이전, 다음 계산이 가능하게된다 
+    currentYear=d.getFullYear();
+    currentMonth=d.getMonth();
+
+    printDate(d.getFullYear(),d.getMonth()+1);
+
+    d.setDate(1);//1일로조작..왜? 1일이 무슨 요일인지 알려고 
+    //왜알아야하나 ? 반복문의 시작을 어느 요일부터 해야할지 알아야하닌깐
+    // alert((d.getMonth()+1)+"월의 시작요일은 "+d.getDay());
+    startDay=d.getDay();
+}
+//현재날짜의 마지막 날 구하기 
+function getCurrentLastDate(){
+    lastDate=new Date(currentYear,currentMonth+1, 0).getDate();
+}
+//원하는 날짜를 조작할 수 있는 함수! 
+function getCustomDate(){
+    
+}
+//원하는 날짜를 출력할 함수 
+function printDate(yy,mm){
+    info.innerText=yy+"년"+getZeroDate(mm)+"월";    
+}
+//현재 보고 있는 날짜의 이전 월 구하기
+function prev(){
+    var d=new Date();
+    d.setFullYear(currentYear);
+    d.setMonth(currentMonth-1);
+    
+    currentMonth=d.getMonth();
+    currentYear=d.getFullYear();
+    
+    printDate(currentYear,currentMonth+1);
+    
+    d.setDate(1);//1일로조작 
+    startDay=d.getDay();
+   
+    
+    content.innerText=""; //모두비우고 
+    createDay();
+    getCurrentLastDate();
+    createCell();//날짜생성
+}
+//현재 보고있는 날짜의 다음 월 구하기
+function next(){
+    //다음 월로 조작을 가해야 한다 
+    var d =new Date();
+    d.setFullYear(currentYear);
+    d.setMonth(currentMonth+1); //다음월을 표현
+    
+    //표현만 +1하지말고, 실제데이터도 +1 해줘야한다. 
+    //currentMonth++;
+    currentMonth=d.getMonth(); //11,12,13(1)
+    currentYear=d.getFullYear(); //13으로 넘어간 후에 년도 계산을 반영해야하므로 
+
+    printDate(currentYear,currentMonth+1);
+    
+    d.setDate(1);//1일로조작 
+    startDay=d.getDay();
+    
+    content.innerText=""; //모두비우고 
+    createDay();
+    getCurrentLastDate();
+    createCell();//날짜생성
+}
+function init(){
+    head=document.getElementById("head");
+    content=document.getElementById("content");
+    info=document.getElementById("info");
+   
+}
+
+window.addEventListener("load",function(){
+    init();
+    getCurrentDate(); //현재 날짜 구하기 
+    createDay();//요일생성
+    createCell();
+    getCurrentLastDate();
+    content.innerText=""; //모두비우고 
+    createDay();
+    getCurrentLastDate();
+    createCell();//날짜생성
+});
+</script>
+</head>
+<body>
+    <div class="wrapper">
+        <div id="head">
+            <span><a href="javascript:prev()">◀</a></span>
+            <span id="info">2020년 10월</span>
+            <span><a href="javascript:next()">▶</a></span>
+        </div>
+        <div id="content"></div>
+    </div>
+</body>
+</html>
