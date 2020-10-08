@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Document</title>
+<style>
+#myMap{
+    width:1000px;
+    height: 800px;
+    background:cornflowerblue;
+    margin: auto;
+}
+</style>
+<script>
+var myMap; //div
+function init(){
+    myMap=document.getElementById("myMap");
+    var pos= new google.maps.LatLng(37.252395, 127.074769);
+    var mapProp={
+        center:pos,
+        zoom:15
+    };
+    
+    //구글맵 객체 생성
+    var map = new google.maps.Map(myMap,mapProp); //그려질 div, 옵션
+    
+    //마커생성 
+    var marker= new google.maps.Marker({
+        position:pos,
+        animation:google.maps.Animation.BOUNCE,
+        icon:{
+            url:"../images/gabi/4.jpg",
+            scaledSize:new google.maps.Size(45,45)
+        }
+    });
+    marker.setMap(map);//마커를 적용할 맵객체
+
+    //마커에 클릭이벤트 부여하기 
+    google.maps.event.addListener(marker,"click", function(){
+        alert("여기가궁금쓰?");
+        map.setZoom(19);
+        //정보창 띄우기
+        var pop =new google.maps.InfoWindow({
+            content:"여기가 가비가 사는곳입니당:)"
+        });
+        pop.open(map,marker);
+    });
+}
+</script>
+</head>
+<body>
+    <div id="myMap">구글지도나올예정</div>    
+</body>
+</html>
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBZnvglOCJZXdrv9k96uXeEDOVGyLg_gJc&callback=init"></script>

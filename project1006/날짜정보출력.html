@@ -1,0 +1,17 @@
+<script>
+//사용자로부터 원하는 연,월,일을 입력받아 그날이 무슨요일인지를 출력해주는 프로그램 작성 
+var days=["일요일","월요일","화요일","수요일","목요일","금요일","토요일"];
+function showDay(){
+    var yy=parseInt(prompt("원하는 연도를 입력하세요 "));
+    var mm=parseInt(prompt("원하는 월을 입력하세요 "));
+    var dd=parseInt(prompt("원하는 날짜를 입력하세요 "));
+    
+    var d1=new Date(yy,mm-1,dd); // 현재 날짜 정보를 가진 객체 생성
+
+    var day=days[d1.getDay()];
+
+    alert("그날은 "+day+" 입니다.");
+
+}
+showDay();
+</script>

@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Document</title>
+<style>
+#myMap{
+    width:1000px;
+    height: 800px;
+    background:cornflowerblue;
+    margin: auto;
+}
+</style>
+<script>
+var posArray=[
+{
+        content:"가비가 사는곳이에용",
+        pos:{
+            lati:37.252395 ,
+            longi: 127.074769
+        },
+        url : "../images/gabi/4.jpg"
+    },
+    {
+        content:"아바라존뫗퉹",
+        pos:{
+            lati:37.252335 ,
+            longi:127.074018
+        },
+        url : "../images/food/coffee.webp"
+    },
+    {
+        content:"롯데리아지요",
+        pos:{
+            lati:37.252012 ,
+            longi:127.074453
+        },
+        url : "../images/food/french-fries.webp"
+    },
+    {
+        content:"양꼬치맜있는곳",
+        pos:{
+            lati:37.250467 ,
+            longi:127.075543
+        },
+        url : "../images/food/yumminky.webp"
+    }
+]; //맛집들을 보유할 일차원 배열 ,현재길이는0 왜? 텅 비어있으닌깐
+
+var myMap;
+function init(){
+    myMap=document.getElementById("myMap");
+    createMap();
+}
+function createMap(){
+    // alert("???");
+    //구글맵 객체 생성하기 
+    var map = new google.maps.Map(myMap,{
+        center : new google.maps.LatLng(37.252395, 127.074769),
+        zoom:17
+    });
+    for(var i=0;i<posArray.length;i++){
+        var store=posArray[i]; //한개의 제이슨이 담긴다 
+        //지도에 마커표시 
+        var marker = new google.maps.Marker({
+            position: new google.maps.LatLng(store.pos.lati, store.pos.longi),
+            icon:{
+                url:store.url,
+                scaledSize:new google.maps.Size(45,45)
+            }
+        });
+        //마커를 적용할 맵 지정 
+        marker.setMap(map); 
+        
+        //정보창 띄우기 
+        var popup = new google.maps.InfoWindow({
+            content: store.content
+        });
+        //팝업을 적용할 맵과 마커 지정 
+        popup.open(map,marker);
+    }
+}
+</script>
+</head>
+<body>
+    <div id="myMap">지도쓰</div>
+</body>
+</html>
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBZnvglOCJZXdrv9k96uXeEDOVGyLg_gJc&callback=init"></script>
